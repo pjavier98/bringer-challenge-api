@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
-import { GenerateJWTRequest, GenerateJWTResponse } from './generate-jwt.dtos';
+import { AuthService } from 'src/shared/auth/auth.service';
+import {
+  GenerateJWTRequest,
+  GenerateJWTResponse,
+} from './dtos/generate-jwt.dtos';
+import { TrackingEventsRequest } from './dtos/tracking-events.dto';
 
 @Injectable()
 export class AppService {
@@ -16,5 +20,11 @@ export class AppService {
     });
 
     return { jwt };
+  }
+
+  async getTrackingEvents({
+    trackingNumber,
+  }: TrackingEventsRequest): Promise<any> {
+    return { events: [trackingNumber] };
   }
 }
