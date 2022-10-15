@@ -10,11 +10,11 @@ export class AppService {
     email,
     password,
   }: GenerateJWTRequest): Promise<GenerateJWTResponse> {
-    const { access_token } = await this.authService.generateJWT({
+    const { jwt } = await this.authService.generateJWT({
       email,
       password,
     });
 
-    return { jwt: `jwt.${email}.${password}.${access_token}` };
+    return { jwt };
   }
 }
