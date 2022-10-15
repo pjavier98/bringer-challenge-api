@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { map, catchError, Observable } from 'rxjs';
@@ -30,8 +30,10 @@ export class ApiService {
       .pipe(map((res) => res.data))
       .pipe(
         catchError((err) => {
-          console.log(err);
-          throw new ForbiddenException('Bringer API not available');
+          throw new BadRequestException(
+            err?.response?.data?.message || 'Bringer API not available',
+            err?.response?.data,
+          );
         }),
       );
   }
