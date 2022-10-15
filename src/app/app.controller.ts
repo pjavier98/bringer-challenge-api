@@ -1,10 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Public } from './decorators';
-import {
-  GenerateJWTRequest,
-  GenerateJWTResponse,
-} from './dtos/generateJWT.dto';
+import { GenerateJWTRequest, GenerateJWTResponse } from './generate-jwt.dtos';
+import { Public } from './public.decorators';
 
 @Controller()
 export class AppController {
@@ -12,9 +9,9 @@ export class AppController {
 
   @Public()
   @Post()
-  generateJWT(
+  async generateJWT(
     @Body() generateJWTRequest: GenerateJWTRequest,
-  ): GenerateJWTResponse {
+  ): Promise<GenerateJWTResponse> {
     return this.appService.generateJWT(generateJWTRequest);
   }
 }
